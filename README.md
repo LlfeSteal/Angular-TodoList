@@ -1,4 +1,4 @@
-# L3mTodolistAngularY2021
+# PWA - TP3 - Todolist Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.
 
