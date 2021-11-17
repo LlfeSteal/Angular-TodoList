@@ -32,7 +32,7 @@ export class TodoListComponent {
     this.todoListService.update(event, todo);
   }
 
-  getTodoRemainsNumber(list: Readonly< TodoItem[] >): number {
+  getTodoRemainsNumber(list: Readonly<TodoItem[]>): number {
     return list.reduce((total, v) => (!v.isDone ? total + 1 : total), 0);
   }
 
@@ -46,5 +46,13 @@ export class TodoListComponent {
 
   filterInactives(item: TodoItem): boolean {
     return !this.filterActives(item);
+  }
+
+  undo(): void {
+    this.todoListService.undo();
+  }
+
+  redo(): void {
+    this.todoListService.redo();
   }
 }
