@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 export interface TodoItem {
   readonly label: string;
@@ -9,7 +9,7 @@ export interface TodoItem {
 
 export interface TodoList {
   readonly label: string;
-  readonly items: Readonly< TodoItem[] >;
+  readonly items: Readonly<TodoItem[]>;
 }
 
 let idItem = 0;
@@ -18,7 +18,7 @@ let idItem = 0;
   providedIn: 'root'
 })
 export class TodolistService {
-  private current: TodoList = {label: 'MIAGE', items: [] };
+  private current: TodoList = {label: 'MIAGE', items: []};
   private subj = new BehaviorSubject<TodoList>(this.current);
   readonly observable = this.subj.asObservable();
   private previous: TodoList[] = [];
@@ -31,30 +31,30 @@ export class TodolistService {
 
   append(...labels: Readonly<string[]>): this {
     const L: TodoList = this.subj.getValue();
-    this.subj.next( {
+    this.subj.next({
       ...L,
       items: [
         ...L.items,
-        ...labels.filter( l => l !== '').map(
-            label => ({label, isDone: false, id: idItem++})
-          )
+        ...labels.filter(l => l !== '').map(
+          label => ({label, isDone: false, id: idItem++})
+        )
       ]
-    } );
+    });
     return this;
   }
 
   remove(...items: Readonly<TodoItem[]>): this {
     const L = this.subj.getValue();
-    const NL = {...L, items: L.items.filter(item => items.indexOf(item) === -1 ) };
-    this.subj.next( NL );
+    const NL = {...L, items: L.items.filter(item => items.indexOf(item) === -1)};
+    this.subj.next(NL);
     return this;
   }
 
   update(data: Partial<TodoItem>, ...items: Readonly<TodoItem[]>): this {
     if (data.label !== '') {
       const L = this.subj.getValue();
-      const NL = {...L, items: L.items.map(item => items.indexOf(item) >= 0 ? {...item, ...data} : item ) };
-      this.subj.next( NL );
+      const NL = {...L, items: L.items.map(item => items.indexOf(item) >= 0 ? {...item, ...data} : item)};
+      this.subj.next(NL);
     } else {
       this.remove(...items);
     }
@@ -63,27 +63,35 @@ export class TodolistService {
 
   undo(): this {
     if (this.previous.length > 0) {
-      this.subj.next( this.previous[this.previous.length - 1] );
+      this.subj.next(this.previous[this.previous.length - 1]);
     }
     return this;
   }
 
   redo(): this {
     if (this.futures.length > 0) {
-      this.subj.next( this.futures[this.futures.length - 1] );
+      this.subj.next(this.futures[this.futures.length - 1]);
     }
     return this;
   }
 
+  hasUndos(): boolean {
+    return this.previous.length > 0;
+  }
+
+  hasRedos(): boolean {
+    return this.futures.length > 0;
+  }
+
   private managePersistency(): void {
     const str = localStorage.getItem('TDL_L3_MIAGE');
-    if (str && str !== tdlToString(this.current) ) {
-      this.subj.next( strToTdl(str) );
+    if (str && str !== tdlToString(this.current)) {
+      this.subj.next(strToTdl(str));
     }
   }
 
   private manageUndoRedo(): void {
-    this.observable.subscribe( tdl => {
+    this.observable.subscribe(tdl => {
       if (tdl !== this.current) {
         localStorage.setItem('TDL_L3_MIAGE', tdlToString(tdl));
         // Undo-redo
@@ -113,7 +121,7 @@ export class TodolistService {
         }
         this.current = tdl;
       }
-    } );
+    });
   }
 }
 
@@ -123,6 +131,6 @@ export function tdlToString(tdl: TodoList): string {
 
 export function strToTdl(str: string): TodoList {
   const L: TodoList = JSON.parse(str);
-  idItem = L.items.reduce( (id, item) => id <= item.id ? item.id + 1 : id, 0);
+  idItem = L.items.reduce((id, item) => id <= item.id ? item.id + 1 : id, 0);
   return L;
 }
