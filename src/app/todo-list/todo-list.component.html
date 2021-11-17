@@ -15,8 +15,10 @@
             name="toggleAll"
     />.
     <label for="toggleAll">Mark all as complete</label>
-    <ul class="todo-list" *ngIf="currentFilter()|async as todoList">
-      <app-todo-item *ngFor="let todo of todoList.items" [todo]="todo" (deleteEmitter)="deleteTodo($event)" (updateEmitter)="updateTodo($event, todo)"></app-todo-item>
+    <ul class="todo-list" *ngIf="this.todoListService.observable|async as todoList">
+      <div *ngFor="let todo of todoList.items">
+        <app-todo-item *ngIf="currentFilter(todo)" [todo]="todo" (deleteEmitter)="deleteTodo($event)" (updateEmitter)="updateTodo($event, todo)"></app-todo-item>
+      </div>
     </ul>
   </section>
   <footer class="footer">
@@ -28,10 +30,10 @@
         <a (click)="currentFilter = filterAll" class="filterAll">Tous</a>
       </li>
       <li>
-        <a class="filterActives">Actifs</a>
+        <a (click)="currentFilter = filterActives" class="filterActives">Actifs</a>
       </li>
       <li>
-        <a class="filterCompleted">Complétés</a>
+        <a (click)="currentFilter = filterInactives" class="filterCompleted">Complétés</a>
       </li>
     </ul>
     <button class="clear-completed">Supprimer cochées</button>

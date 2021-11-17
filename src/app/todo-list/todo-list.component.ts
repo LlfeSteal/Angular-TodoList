@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
-import {TodoItem, TodoList, TodolistService} from '../services/todolist.service';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
+import {TodoItem, TodolistService} from '../services/todolist.service';
 
 @Component({
   selector: 'app-todolist',
@@ -12,7 +10,7 @@ export class TodoListComponent {
 
   todoInputValue: string;
   todoListService: TodolistService;
-  currentFilter: () => Observable<TodoList>;
+  currentFilter: (item: TodoItem) => boolean;
 
   constructor(service: TodolistService) {
     this.todoListService = service;
@@ -38,14 +36,15 @@ export class TodoListComponent {
     return list.reduce((total, v) => (!v.isDone ? total + 1 : total), 0);
   }
 
-  filterAll(): Observable<TodoList> {
-    return this.todoListService.observable.pipe();
+  filterAll(): boolean {
+    return true;
   }
 
-  filterActives(): Observable<TodoList> {
-    return this.todoListService.observable.pipe();
+  filterActives(item: TodoItem): boolean {
+    return !item.isDone;
   }
 
-
-
+  filterInactives(item: TodoItem): boolean {
+    return !this.filterActives(item);
+  }
 }
