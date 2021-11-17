@@ -11,15 +11,13 @@
   </div>
 
   <input
-    tabindex="-1"
-    *ngIf="editing"
-    [autofocus]="true"
     [(ngModel)]="newValue"
     name="newTextInput"
     class="edit"
     type="text"
-    [style.display]="!editing"
     [value]="todo.label"
+    [tabIndex]="100"
     (focusout)="updateValue()"
+    autofocus
   />
 </li>
