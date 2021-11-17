@@ -50,6 +50,11 @@ export class TodolistService {
     return this;
   }
 
+  removeAll(data: Partial<TodoItem>): this {
+    const items = this.current.items.filter((value) => value.isDone === data.isDone || value.label === data.label);
+    return this.remove(...items);
+  }
+
   update(data: Partial<TodoItem>, ...items: Readonly<TodoItem[]>): this {
     if (data.label !== '') {
       const L = this.subj.getValue();
