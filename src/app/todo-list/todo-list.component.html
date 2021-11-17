@@ -42,6 +42,6 @@
         <a (click)="currentFilter = filterInactives" class="filterCompleted">Complétés</a>
       </li>
     </ul>
-    <button class="clear-completed">Supprimer cochées</button>
+    <button (click)="removeAllSelected()" class="clear-completed">Supprimer cochées</button>
   </footer>
 </section>
