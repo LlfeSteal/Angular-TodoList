@@ -22,6 +22,7 @@ export class TodoItemComponent {
 
   toggleMode(): void {
     this.editing = !this.editing;
+    this.newValue = this.todo.label;
   }
 
   updateValue(): void {
