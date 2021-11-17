@@ -61,6 +61,10 @@ export class TodolistService {
     return this;
   }
 
+  updateAll(data: Partial<TodoItem>): this {
+    return this.update(data, ...this.current.items);
+  }
+
   undo(): this {
     if (this.previous.length > 0) {
       this.subj.next(this.previous[this.previous.length - 1]);
