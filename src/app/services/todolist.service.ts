@@ -51,7 +51,7 @@ export class TodolistService {
   }
 
   update(data: Partial<TodoItem>, ...items: Readonly<TodoItem[]>): this {
-    if(data.label !== "") {
+    if (data.label !== '') {
       const L = this.subj.getValue();
       const NL = {...L, items: L.items.map(item => items.indexOf(item) >= 0 ? {...item, ...data} : item ) };
       this.subj.next( NL );
@@ -75,14 +75,14 @@ export class TodolistService {
     return this;
   }
 
-  private managePersistency() {
+  private managePersistency(): void {
     const str = localStorage.getItem('TDL_L3_MIAGE');
     if (str && str !== tdlToString(this.current) ) {
       this.subj.next( strToTdl(str) );
     }
   }
 
-  private manageUndoRedo() {
+  private manageUndoRedo(): void {
     this.observable.subscribe( tdl => {
       if (tdl !== this.current) {
         localStorage.setItem('TDL_L3_MIAGE', tdlToString(tdl));
@@ -115,7 +115,6 @@ export class TodolistService {
       }
     } );
   }
-
 }
 
 export function tdlToString(tdl: TodoList): string {

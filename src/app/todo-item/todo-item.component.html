@@ -1,0 +1,24 @@
+<li [class.editing]="editing" [class.completed]="todo.isDone">
+  <div class="view">
+    <input [checked]="todo.isDone"
+           class="toggle"
+           type="checkbox"
+           name="done"
+           (change)="updateDone($event)"
+    />
+    <label *ngIf="!editing" (dblclick)="toggleMode()" class="texte">{{todo.label}}</label>
+    <button (click)="delete()" class="destroy"></button>
+  </div>
+
+  <input
+    *ngIf="editing"
+    [autofocus]="true"
+    [(ngModel)]="newValue"
+    name="newTextInput"
+    class="edit"
+    type="text"
+    [style.display]="!editing"
+    [value]="todo.label"
+    (focusout)="updateValue()"
+  />
+</li>
