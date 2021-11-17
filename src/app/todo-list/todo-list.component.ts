@@ -11,11 +11,13 @@ export class TodoListComponent {
   todoInputValue: string;
   todoListService: TodolistService;
   currentFilter: (item: TodoItem) => boolean;
+  toggleAllState: boolean;
 
   constructor(service: TodolistService) {
     this.todoListService = service;
     this.todoInputValue = '';
     this.currentFilter = this.filterAll;
+    this.toggleAllState = true;
   }
 
   addTodo(): void {
@@ -54,5 +56,12 @@ export class TodoListComponent {
 
   redo(): void {
     this.todoListService.redo();
+  }
+
+  toggleAll(): void {
+    const selectPartialTodoItem: Partial<TodoItem> = {isDone: this.toggleAllState};
+    this.todoListService.updateAll(selectPartialTodoItem);
+    this.toggleAllState = !this.toggleAllState;
+
   }
 }
