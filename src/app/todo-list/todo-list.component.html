@@ -1,6 +1,10 @@
 <section class="todoapp">
+  <section>
+    <button (click)="undo()" [disabled]="!this.todoListService.hasUndos()" class="manage-undo-redo">↶</button>
+    <button (click)="redo()" [disabled]="!this.todoListService.hasRedos()" class="manage-undo-redo">↷</button>
+  </section>
   <header class="header">
-    <h1></h1> <!-- Le label de la liste -->
+    <h1>MIASHS</h1> <!-- Le label de la liste -->
     <form (submit)="addTodo()">
       <input  [(ngModel)]= "todoInputValue"
               name        = "newTodoInput"
@@ -13,6 +17,7 @@
     <input  class="toggle-all"
             type="checkbox"
             name="toggleAll"
+            id="toggleAll"
     />.
     <label for="toggleAll">Mark all as complete</label>
     <ul class="todo-list" *ngIf="this.todoListService.observable|async as todoList">
