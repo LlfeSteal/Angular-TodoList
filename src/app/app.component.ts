@@ -8,8 +8,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() {
-    /* Ajoutez un paramètre de type TodolistService au constructeur */
-  }
-
 }
