@@ -58,6 +58,11 @@ export class TodoListComponent {
     this.todoListService.redo();
   }
 
+  removeAllSelected(): void {
+    const selectPartialTodoItem: Partial<TodoItem> = {isDone: true};
+    this.todoListService.removeAll(selectPartialTodoItem);
+  }
+
   toggleAll(): void {
     const selectPartialTodoItem: Partial<TodoItem> = {isDone: this.toggleAllState};
     this.todoListService.updateAll(selectPartialTodoItem);
