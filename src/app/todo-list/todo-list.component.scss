@@ -1,0 +1,12 @@
+.manage-undo-redo {
+  font-size: 250%;
+}
+
+.manage-undo-redo:hover {
+  cursor: pointer;
+}
+
+.manage-undo-redo:disabled {
+  color: gray;
+  opacity: 50%;
+}
