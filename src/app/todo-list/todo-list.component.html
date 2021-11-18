@@ -28,7 +28,7 @@
     </ul>
   </section>
   <footer class="footer">
-    <span class="todo-count"*ngIf="todoListService.observable|async as todoList">
+    <span class="todo-count" *ngIf="todoListService.observable|async as todoList">
       <strong>{{getTodoRemainsNumber(todoList.items)}}</strong>
       restantes</span>
     <ul class="filters">
@@ -45,3 +45,7 @@
     <button (click)="removeAllDoneItems()" class="clear-completed">Supprimer cochées</button>
   </footer>
 </section>
+<section *ngIf="todoListService.observable|async as todoList">
+  <app-todolist-qrcode [data]="stringifyData(todoList)"></app-todolist-qrcode>
+</section>
+
