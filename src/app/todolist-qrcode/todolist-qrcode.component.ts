@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todolist-qrcode',
   templateUrl: './todolist-qrcode.component.html',
   styleUrls: ['./todolist-qrcode.component.scss']
 })
-export class TodolistQrcodeComponent implements OnInit {
+export class TodolistQrcodeComponent {
 
-  constructor() { }
+  href: string;
+  @Input() data!: string;
 
-  ngOnInit(): void {
+  constructor() {
+    this.href = 'http://localhost:4200/';
   }
+
 
 }
