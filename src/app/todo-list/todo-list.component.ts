@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {TodoItem, TodolistService} from '../services/todolist.service';
+import {TodoItem, TodolistService, tdlToString, TodoList} from '../services/todolist.service';
 
 @Component({
   selector: 'app-todolist',
@@ -67,6 +67,9 @@ export class TodoListComponent {
     const selectPartialTodoItem: Partial<TodoItem> = {isDone: this.toggleAllState};
     this.todoListService.updateAll(selectPartialTodoItem);
     this.toggleAllState = !this.toggleAllState;
+  }
 
+  stringifyData(todolist: TodoList): string {
+    return tdlToString(todolist);
   }
 }
