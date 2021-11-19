@@ -95,6 +95,12 @@ export class TodolistService {
     return this.futures.length > 0;
   }
 
+  loadData(todoList: TodoList): void {
+    this.previous = [];
+    this.futures = [];
+    this.subj.next(todoList);
+  }
+
   private managePersistency(): void {
     const str = localStorage.getItem('TDL_L3_MIAGE');
     if (str && str !== tdlToString(this.current)) {
