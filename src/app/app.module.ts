@@ -7,6 +7,7 @@ import {TodoListComponent} from './todo-list/todo-list.component';
 import {TodoItemComponent} from './todo-item/todo-item.component';
 import { TodolistQrcodeComponent } from './todolist-qrcode/todolist-qrcode.component';
 import {QRCodeModule} from 'angular2-qrcode';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {QRCodeModule} from 'angular2-qrcode';
   imports: [
     BrowserModule,
     FormsModule,
-    QRCodeModule
+    QRCodeModule,
+    RouterModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]
