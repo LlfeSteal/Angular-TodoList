@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {TodoItem, TodolistService, tdlToString, TodoList} from '../services/todolist.service';
+import {TodoItem, TodolistService, tdlToString, TodoList, strToTdl} from '../services/todolist.service';
 
 @Component({
   selector: 'app-todolist',
@@ -71,5 +71,12 @@ export class TodoListComponent {
 
   stringifyData(todolist: TodoList): string {
     return tdlToString(todolist);
+  }
+
+  loadServiceData(data: string|null): void {
+    if (data != null) {
+      const todoList: TodoList = strToTdl(data);
+      this.todoListService.loadData(todoList);
+    }
   }
 }
