@@ -1,23 +1,26 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TodoItem, TodolistService, tdlToString, TodoList, strToTdl} from '../services/todolist.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-todolist',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
 
   todoInputValue: string;
   todoListService: TodolistService;
   currentFilter: (item: TodoItem) => boolean;
   toggleAllState: boolean;
+  route: ActivatedRoute;
 
-  constructor(service: TodolistService) {
+  constructor(service: TodolistService, route: ActivatedRoute) {
     this.todoListService = service;
     this.todoInputValue = '';
     this.currentFilter = this.filterAll;
     this.toggleAllState = true;
+    this.route = route;
   }
 
   addTodo(): void {
@@ -73,10 +76,17 @@ export class TodoListComponent {
     return tdlToString(todolist);
   }
 
-  loadServiceData(data: string|null): void {
+  loadUrlDatas(data: string|null): void {
     if (data != null) {
       const todoList: TodoList = strToTdl(data);
       this.todoListService.loadData(todoList);
     }
+  }
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe(params  => {
+      const data = params.get('data');
+      this.loadUrlDatas(data);
+    });
   }
 }
