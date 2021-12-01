@@ -1,15 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {SpeechRecognitionService} from '../services/speech-recognition.service';
+
 
 @Component({
   selector: 'app-speech-recognition',
   templateUrl: './speech-recognition.component.html',
   styleUrls: ['./speech-recognition.component.scss']
 })
-export class SpeechRecognitionComponent implements OnInit {
+export class SpeechRecognitionComponent {
 
-  constructor() { }
+  speechService: SpeechRecognitionService;
+  @Output() todoItemEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  ngOnInit(): void {
+  constructor(speechService: SpeechRecognitionService) {
+    this.speechService = speechService;
+    this.speechService.init();
+    this.speechService.observable.subscribe((value => this.emitText(value)));
+  }
+
+  emitText(text: string): void {
+    console.log('text', text);
+    this.todoItemEmitter.emit(text);
+  }
+
+  startService(): void {
+    this.speechService.start();
+    this.speechService.error = false;
   }
 
 }
