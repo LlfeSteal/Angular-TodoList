@@ -1,10 +1,12 @@
 <section class="todoapp">
-  <section>
-    <button (click)="undo()" [disabled]="!this.todoListService.hasUndos()" class="manage-undo-redo">↶</button>
-    <button (click)="redo()" [disabled]="!this.todoListService.hasRedos()" class="manage-undo-redo">↷</button>
+  <section class="control-box">
+    <div>
+      <button (click)="undo()" [disabled]="!this.todoListService.hasUndos()" class="control-buttons">↶</button>
+      <button (click)="redo()" [disabled]="!this.todoListService.hasRedos()" class="control-buttons">↷</button>
+    </div>
+    <app-speech-recognition class="control-buttons" (todoItemEmitter)="addTodo($event)"></app-speech-recognition>
   </section>
   <header class="header">
-    <app-speech-recognition (todoItemEmitter)="addTodo($event)"></app-speech-recognition>
 
     <app-todolist-title *ngIf="this.todoListService.observable|async as todoList" [title]="todoList.label" (updateEmitter)="updateTodolistTitle($event)"></app-todolist-title>
     <form (submit)="addTodoFromInput()">
