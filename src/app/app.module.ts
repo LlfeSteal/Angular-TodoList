@@ -9,6 +9,7 @@ import { TodolistQrcodeComponent } from './todolist-qrcode/todolist-qrcode.compo
 import {QRCodeModule} from 'angular2-qrcode';
 import {RouterModule} from '@angular/router';
 import { TodolistTitleComponent } from './todolist-title/todolist-title.component';
+import { SpeechRecognitionComponent } from './speech-recognition/speech-recognition.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TodolistTitleComponent } from './todolist-title/todolist-title.componen
     TodoItemComponent,
     TodolistQrcodeComponent,
     TodolistTitleComponent,
+    SpeechRecognitionComponent,
   ],
   imports: [
     BrowserModule,
