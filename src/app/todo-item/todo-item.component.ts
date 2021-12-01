@@ -1,4 +1,4 @@
-import {Component, ChangeDetectionStrategy, Input, Output, EventEmitter} from '@angular/core';
+import {Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
 import {TodoItem} from '../services/todolist.service';
 
 @Component({
@@ -15,13 +15,23 @@ export class TodoItemComponent {
   @Output() updateEmitter: EventEmitter<Partial<TodoItem>> = new EventEmitter<Partial<TodoItem>>();
   editing = false;
   newValue!: string;
+  @ViewChild('newTodoItemInput') newTextInput!: ElementRef<HTMLInputElement>;
 
   delete(): void {
     this.deleteEmitter.emit(this.todo);
   }
 
+  setEditing(newValue: boolean): void {
+    this.editing = newValue;
+    if (newValue) {
+      requestAnimationFrame(
+        () => this.newTextInput.nativeElement.focus()
+      );
+    }
+  }
+
   toggleMode(): void {
-    this.editing = !this.editing;
+    this.setEditing(!this.editing);
     this.newValue = this.todo.label;
   }
 
