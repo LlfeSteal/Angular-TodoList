@@ -1,5 +1,5 @@
-.manage-undo-redo {
-  font-size: 250%;
+.control-buttons {
+  font-size: 350%;
 }
 
 .manage-undo-redo:hover {
@@ -9,4 +9,11 @@
 .manage-undo-redo:disabled {
   color: gray;
   opacity: 50%;
+}
+
+.control-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
 }
