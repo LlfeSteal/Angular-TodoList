@@ -1,1 +1,15 @@
-<p>todolist-title works!</p>
+<h1 *ngIf="!editing" (dblclick)="toggleMode()" class="texte">{{title}}</h1>
+<input
+  #newTitleInput
+  *ngIf="editing"
+  [(ngModel)]="newValue"
+  name="newTextInput"
+  class="edit"
+  type="text"
+  [value]="title"
+  [tabIndex]="100"
+  (focusout)="updateValue()"
+  autofocus
+/>
+
+
