@@ -23,10 +23,13 @@ export class TodoListComponent implements OnInit {
     this.route = route;
   }
 
-  addTodo(): void {
-    console.log('add TODO');
-    this.todoListService.append(this.todoInputValue);
+  addTodoFromInput(): void {
+    this.addTodo(this.todoInputValue);
     this.todoInputValue = '';
+  }
+
+  addTodo(text: string): void {
+    this.todoListService.append(text);
   }
 
   deleteTodo(todo: TodoItem): void {
@@ -76,7 +79,7 @@ export class TodoListComponent implements OnInit {
     return tdlToString(todolist);
   }
 
-  loadUrlDatas(data: string|null): void {
+  loadUrlDatas(data: string | null): void {
     if (data != null) {
       const todoList: TodoList = strToTdl(data);
       this.todoListService.loadData(todoList);
@@ -84,7 +87,7 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe(params  => {
+    this.route.queryParamMap.subscribe(params => {
       const data = params.get('data');
       this.loadUrlDatas(data);
     });
