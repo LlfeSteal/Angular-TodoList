@@ -87,6 +87,12 @@ export class TodolistService {
     return this;
   }
 
+  setTitle(title: string): void {
+    const L = this.subj.getValue();
+    const NL = {label: title, items: L.items};
+    this.subj.next(NL);
+  }
+
   hasUndos(): boolean {
     return this.previous.length > 0;
   }
