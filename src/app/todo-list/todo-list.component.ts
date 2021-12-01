@@ -89,4 +89,8 @@ export class TodoListComponent implements OnInit {
       this.loadUrlDatas(data);
     });
   }
+
+  updateTodolistTitle(event: string): void {
+    this.todoListService.setTitle(event);
+  }
 }
