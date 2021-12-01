@@ -4,8 +4,10 @@
     <button (click)="redo()" [disabled]="!this.todoListService.hasRedos()" class="manage-undo-redo">↷</button>
   </section>
   <header class="header">
+    <app-speech-recognition (todoItemEmitter)="addTodo($event)"></app-speech-recognition>
+
     <app-todolist-title *ngIf="this.todoListService.observable|async as todoList" [title]="todoList.label" (updateEmitter)="updateTodolistTitle($event)"></app-todolist-title>
-    <form (submit)="addTodo()">
+    <form (submit)="addTodoFromInput()">
       <input  [(ngModel)]= "todoInputValue"
               name        = "newTodoInput"
               class       = "new-todo"
