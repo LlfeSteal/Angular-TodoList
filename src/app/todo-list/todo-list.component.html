@@ -4,7 +4,7 @@
     <button (click)="redo()" [disabled]="!this.todoListService.hasRedos()" class="manage-undo-redo">↷</button>
   </section>
   <header class="header">
-    <h1>MIASHS</h1> <!-- Le label de la liste -->
+    <app-todolist-title *ngIf="this.todoListService.observable|async as todoList" [title]="todoList.label"></app-todolist-title>
     <form (submit)="addTodo()">
       <input  [(ngModel)]= "todoInputValue"
               name        = "newTodoInput"
