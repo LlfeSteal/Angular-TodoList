@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 
 export interface TodoItem {
   readonly label: string;
@@ -105,6 +106,13 @@ export class TodolistService {
     this.previous = [];
     this.futures = [];
     this.subj.next(todoList);
+  }
+
+  changeItemIndex(previousIndex: number, nextIndex: number): void {
+    const items: TodoItem[] = [...this.current.items];
+    moveItemInArray(items, previousIndex, nextIndex);
+    const NL = {label: this.current.label, items: [...items]};
+    this.subj.next(NL);
   }
 
   private managePersistency(): void {
