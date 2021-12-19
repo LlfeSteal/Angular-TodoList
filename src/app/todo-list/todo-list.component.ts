@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TodoItem, TodolistService, tdlToString, TodoList, strToTdl} from '../services/todolist.service';
 import {ActivatedRoute} from '@angular/router';
+import {CdkDragDrop} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-todolist',
@@ -95,5 +96,9 @@ export class TodoListComponent implements OnInit {
 
   updateTodolistTitle(event: string): void {
     this.todoListService.setTitle(event);
+  }
+
+  dropItem(event: CdkDragDrop<string[]>): void {
+    this.todoListService.changeItemIndex(event.previousIndex, event.currentIndex);
   }
 }
