@@ -25,9 +25,10 @@
             (click)="toggleAll()"
     />.
     <label for="toggleAll">Mark all as complete</label>
-    <ul class="todo-list" *ngIf="this.todoListService.observable|async as todoList">
-      <div *ngFor="let todo of todoList.items">
-        <app-todo-item *ngIf="currentFilter(todo)" [todo]="todo" (deleteEmitter)="deleteTodo($event)" (updateEmitter)="updateTodo($event, todo)"></app-todo-item>
+    <ul cdkDropList (cdkDropListDropped)="dropItem($event)" class="todo-list" *ngIf="this.todoListService.observable|async as todoList">
+      <div cdkDrag *ngFor="let todo of todoList.items">
+          <app-todo-item *ngIf="currentFilter(todo)" [todo]="todo" (deleteEmitter)="deleteTodo($event)" (updateEmitter)="updateTodo($event, todo)"></app-todo-item>
+          <div class="preview" *cdkDragPreview>{{todo.label}}</div>
       </div>
     </ul>
   </section>
