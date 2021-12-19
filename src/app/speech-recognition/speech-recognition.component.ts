@@ -19,7 +19,6 @@ export class SpeechRecognitionComponent {
   }
 
   emitText(text: string): void {
-    console.log('text', text);
     this.todoItemEmitter.emit(text);
   }
 
