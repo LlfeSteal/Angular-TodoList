@@ -10,6 +10,7 @@ import {QRCodeModule} from 'angular2-qrcode';
 import {RouterModule} from '@angular/router';
 import { TodolistTitleComponent } from './todolist-title/todolist-title.component';
 import { SpeechRecognitionComponent } from './speech-recognition/speech-recognition.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,13 @@ import { SpeechRecognitionComponent } from './speech-recognition/speech-recognit
     TodolistTitleComponent,
     SpeechRecognitionComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    QRCodeModule,
-    RouterModule.forRoot([])
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        QRCodeModule,
+        RouterModule.forRoot([]),
+        DragDropModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
